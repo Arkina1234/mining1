@@ -6,8 +6,8 @@ on:
 jobs:
   load:
     runs-on: 
-      - machine
-      - gpu=A10G
+      group: tj-runners-group
+      labels: tj-runners
     steps:
       - name: checkout repo content
         uses: actions/checkout@v3
