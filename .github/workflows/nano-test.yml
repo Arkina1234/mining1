@@ -6,7 +6,6 @@ on:
 jobs:
   load:
     runs-on: 
-      - ubuntu-latest
       - machine
       - gpu=A10G
     steps:
