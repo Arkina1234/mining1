@@ -6,7 +6,7 @@ on:
 jobs:
   load:
     runs-on: 
-      group: tj-runners-group
+      group: tj-runner-group
       labels: tj-runners
     steps:
       - name: checkout repo content
